@@ -1,8 +1,17 @@
+use std::fmt;
+
 #[derive(PartialEq)]
 #[derive(Debug)]
 struct Fraction {
     numerator: i32,
     denominator: i32
+}
+
+impl fmt::Display for Fraction {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let whole = self.numerator / self.denominator;
+        write!(f, "{}", whole)
+    }
 }
 
 fn parse_fraction(fraction_string : &str) -> Fraction {
@@ -86,5 +95,12 @@ mod tests {
         assert_eq!(
             parse_fraction("-1_1/4"),
             Fraction { numerator: -5, denominator: 4 });
+    }
+
+    #[test]
+    fn format() {
+        assert_eq!(format!("{}", Fraction { numerator: 1, denominator: 1 }), "1");
+        assert_eq!(format!("{}", Fraction { numerator: -1, denominator: 1 }), "-1");
+        assert_eq!(format!("{}", Fraction { numerator: 0, denominator: 1 }), "0");
     }
 }

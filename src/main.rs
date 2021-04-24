@@ -17,12 +17,18 @@ impl fmt::Display for Fraction {
             write!(f, "-");
         }
 
-        if self.denominator == 1 {
+        if denominator == 1 {
             let whole = numerator / denominator;
             write!(f, "{}", whole)
         }
         else {
-            write!(f, "{}/{}", numerator, denominator)
+            let mut remaining_numerator = numerator;
+            if numerator > denominator {
+                let whole = numerator / denominator;
+                remaining_numerator -= whole * denominator;
+                write!(f, "{}_", whole);
+            }
+            write!(f, "{}/{}", remaining_numerator, denominator)
         }
     }
 }
@@ -117,5 +123,7 @@ mod tests {
         assert_eq!(format!("{}", Fraction { numerator: 0, denominator: 1 }), "0");
         assert_eq!(format!("{}", Fraction { numerator: 1, denominator: 4 }), "1/4");
         assert_eq!(format!("{}", Fraction { numerator: -1, denominator: 4 }), "-1/4");
+        assert_eq!(format!("{}", Fraction { numerator: 5, denominator: 4 }), "1_1/4");
+        assert_eq!(format!("{}", Fraction { numerator: -5, denominator: 4 }), "-1_1/4");
     }
 }

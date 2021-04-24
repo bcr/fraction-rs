@@ -9,12 +9,20 @@ struct Fraction {
 
 impl fmt::Display for Fraction {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let numerator = self.numerator.abs();
+        let denominator = self.denominator;
+        let is_negative = self.numerator < 0;
+
+        if is_negative {
+            write!(f, "-");
+        }
+
         if self.denominator == 1 {
-            let whole = self.numerator / self.denominator;
+            let whole = numerator / denominator;
             write!(f, "{}", whole)
         }
         else {
-            write!(f, "{}/{}", self.numerator, self.denominator)
+            write!(f, "{}/{}", numerator, denominator)
         }
     }
 }

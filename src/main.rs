@@ -9,8 +9,13 @@ struct Fraction {
 
 impl fmt::Display for Fraction {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let whole = self.numerator / self.denominator;
-        write!(f, "{}", whole)
+        if self.denominator == 1 {
+            let whole = self.numerator / self.denominator;
+            write!(f, "{}", whole)
+        }
+        else {
+            write!(f, "{}/{}", self.numerator, self.denominator)
+        }
     }
 }
 
@@ -102,5 +107,7 @@ mod tests {
         assert_eq!(format!("{}", Fraction { numerator: 1, denominator: 1 }), "1");
         assert_eq!(format!("{}", Fraction { numerator: -1, denominator: 1 }), "-1");
         assert_eq!(format!("{}", Fraction { numerator: 0, denominator: 1 }), "0");
+        assert_eq!(format!("{}", Fraction { numerator: 1, denominator: 4 }), "1/4");
+        assert_eq!(format!("{}", Fraction { numerator: -1, denominator: 4 }), "-1/4");
     }
 }

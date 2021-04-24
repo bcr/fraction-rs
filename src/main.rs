@@ -6,8 +6,13 @@ struct Fraction {
 }
 
 fn parse_fraction(fraction_string : &str) -> Fraction {
-    let whole = fraction_string.parse::<i32>().unwrap();
-    Fraction { numerator: whole, denominator : 1}
+    if fraction_string.contains("/") {
+        let mut elements = fraction_string.split("/");
+        Fraction { numerator: elements.next().unwrap().parse::<i32>().unwrap(), denominator : elements.next().unwrap().parse::<u32>().unwrap() }
+    } else {
+        let whole = fraction_string.parse::<i32>().unwrap();
+        Fraction { numerator: whole, denominator : 1}
+    }
 }
 
 // fn parse_operator(operator_string : &str) {
@@ -40,5 +45,12 @@ mod tests {
         assert_eq!(
             parse_fraction("-1"),
             Fraction { numerator: -1, denominator: 1 });
+    }
+
+    #[test]
+    fn fraction() {
+        assert_eq!(
+            parse_fraction("1/4"),
+            Fraction { numerator: 1, denominator: 4 });
     }
 }

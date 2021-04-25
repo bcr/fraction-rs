@@ -5,9 +5,9 @@ use fraction::Fraction;
 
 fn process_input(input: &str) -> Result<String, String> {
     let mut elements = input.split_whitespace();
-    let f1: Fraction = elements.next().unwrap().parse().unwrap();
+    let f1 = elements.next().unwrap().parse::<Fraction>().unwrap();
     let operator = elements.next().unwrap();
-    let f2: Fraction = elements.next().unwrap().parse().unwrap();
+    let f2 = elements.next().unwrap().parse::<Fraction>().unwrap();
 
     let mut result = match operator {
         "*" => Fraction { numerator: f1.numerator * f2.numerator, denominator: f1.denominator * f2.denominator },

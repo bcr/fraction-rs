@@ -70,6 +70,13 @@ impl FromStr for Fraction {
     }
 }
 
+impl Fraction {
+    fn reduce(input: Fraction) -> Fraction {
+        let divisor = gcd(input.numerator.abs(), input.denominator);
+        Fraction { numerator: input.numerator / divisor, denominator: input.denominator / divisor }
+    }    
+}
+
 // https://stackoverflow.com/questions/18541832/c-sharp-find-the-greatest-common-divisor
 fn gcd(a : i32, b : i32) -> i32 {
     if b == 0 {
@@ -77,11 +84,6 @@ fn gcd(a : i32, b : i32) -> i32 {
     } else {
         return gcd(b, a % b)
     }
-}
-
-fn reduce(input: Fraction) -> Fraction {
-    let divisor = gcd(input.numerator.abs(), input.denominator);
-    Fraction { numerator: input.numerator / divisor, denominator: input.denominator / divisor }
 }
 
 fn process_input(input: &str) -> Result<String, String> {
@@ -98,7 +100,7 @@ fn process_input(input: &str) -> Result<String, String> {
         _ => return Err(String::from("Unknown operator"))
     };
 
-    result = reduce(result);
+    result = Fraction::reduce(result);
     Ok(format!("{}", result))
 }
 

@@ -3,8 +3,7 @@ use std::io::{self, Write};
 use std::num::ParseIntError;
 use std::str::FromStr;
 
-#[derive(PartialEq)]
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 struct Fraction {
     numerator: i32,
     denominator: i32

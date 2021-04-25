@@ -104,11 +104,14 @@ fn output_prompt() {
 }
 
 fn main() {
-    let mut line = String::from("");
-    output_prompt();
-    io::stdin().read_line(&mut line).unwrap();
-    let result = process_input(&line);
-    println!("= {}", result)
+    loop {
+        let mut line = String::from("");
+
+        output_prompt();
+        io::stdin().read_line(&mut line).unwrap();
+        let result = process_input(&line);
+        println!("= {}", result)
+    }
 }
 
 #[cfg(test)]

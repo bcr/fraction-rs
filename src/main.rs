@@ -70,10 +70,14 @@ fn process_input(input: &str) -> String {
     let f1 = parse_fraction(elements.next().unwrap());
     let operator = elements.next().unwrap();
     let f2 = parse_fraction(elements.next().unwrap());
+    let mut result = Fraction { numerator: 0, denominator: 1 };
 
-    // Do math here bro
+    match operator {
+        "*" => result = Fraction { numerator: f1.numerator * f2.numerator, denominator: f1.denominator * f2.denominator },
+        _ => result = result // unknown operator
+    }
 
-    format!("{}", f2)
+    format!("{}", result)
 }
 
 fn output_prompt() {
@@ -135,5 +139,11 @@ mod tests {
         assert_eq!(format!("{}", Fraction { numerator: -1, denominator: 4 }), "-1/4");
         assert_eq!(format!("{}", Fraction { numerator: 5, denominator: 4 }), "1_1/4");
         assert_eq!(format!("{}", Fraction { numerator: -5, denominator: 4 }), "-1_1/4");
+    }
+
+    #[test]
+    fn multiply() {
+        assert_eq!("10", process_input("2 * 5"));
+        assert_eq!("1/8", process_input("1/4 * 1/2"));
     }
 }

@@ -1,5 +1,7 @@
 use std::fmt;
 use std::io::{self, Write};
+use std::num::ParseIntError;
+use std::str::FromStr;
 
 #[derive(PartialEq)]
 #[derive(Debug)]
@@ -34,35 +36,43 @@ impl fmt::Display for Fraction {
     }
 }
 
+impl FromStr for Fraction {
+    type Err = ParseIntError;
+
+    fn from_str(fraction_string: &str) -> Result<Self, Self::Err> {
+        let has_whole = fraction_string.contains("_");
+        let has_fraction = fraction_string.contains("/");
+        let mut whole: i32 = 0;
+        let mut numerator: i32 = 0;
+        let mut denominator: i32 = 1;
+        let mut remaining_string = fraction_string;
+    
+        if !has_whole && !has_fraction {
+            whole = remaining_string.parse::<i32>().unwrap();
+        }
+    
+        if has_whole {
+            let mut elements = remaining_string.split("_");
+            whole = elements.next().unwrap().parse::<i32>().unwrap();
+            remaining_string = elements.next().unwrap();
+        }
+    
+        if has_fraction {
+            let mut elements = remaining_string.split("/");
+            numerator = elements.next().unwrap().parse::<i32>().unwrap();
+            denominator = elements.next().unwrap().parse::<i32>().unwrap();
+        }
+    
+        if whole < 0 {
+            numerator = -numerator;
+        }
+    
+        Ok(Fraction { numerator: (whole * denominator) + numerator, denominator: denominator })
+    }
+}
+
 fn parse_fraction(fraction_string : &str) -> Fraction {
-    let has_whole = fraction_string.contains("_");
-    let has_fraction = fraction_string.contains("/");
-    let mut whole: i32 = 0;
-    let mut numerator: i32 = 0;
-    let mut denominator: i32 = 1;
-    let mut remaining_string = fraction_string;
-
-    if !has_whole && !has_fraction {
-        whole = remaining_string.parse::<i32>().unwrap();
-    }
-
-    if has_whole {
-        let mut elements = remaining_string.split("_");
-        whole = elements.next().unwrap().parse::<i32>().unwrap();
-        remaining_string = elements.next().unwrap();
-    }
-
-    if has_fraction {
-        let mut elements = remaining_string.split("/");
-        numerator = elements.next().unwrap().parse::<i32>().unwrap();
-        denominator = elements.next().unwrap().parse::<i32>().unwrap();
-    }
-
-    if whole < 0 {
-        numerator = -numerator;
-    }
-
-    Fraction { numerator: (whole * denominator) + numerator, denominator: denominator }
+    Fraction::from_str(fraction_string).unwrap()
 }
 
 // https://stackoverflow.com/questions/18541832/c-sharp-find-the-greatest-common-divisor

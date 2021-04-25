@@ -71,9 +71,9 @@ impl FromStr for Fraction {
 }
 
 impl Fraction {
-    fn reduce(input: Fraction) -> Fraction {
+    fn reduce(input: Fraction) -> Result<Fraction, String> {
         let divisor = gcd(input.numerator.abs(), input.denominator);
-        Fraction { numerator: input.numerator / divisor, denominator: input.denominator / divisor }
+        Ok(Fraction { numerator: input.numerator / divisor, denominator: input.denominator / divisor })
     }    
 }
 
@@ -100,7 +100,7 @@ fn process_input(input: &str) -> Result<String, String> {
         _ => return Err(String::from("Unknown operator"))
     };
 
-    result = Fraction::reduce(result);
+    result = Fraction::reduce(result)?;
     Ok(format!("{}", result))
 }
 

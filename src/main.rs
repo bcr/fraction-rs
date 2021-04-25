@@ -1,4 +1,5 @@
 use std::fmt;
+use std::io::{self, Write};
 
 #[derive(PartialEq)]
 #[derive(Debug)]
@@ -64,19 +65,28 @@ fn parse_fraction(fraction_string : &str) -> Fraction {
     Fraction { numerator: (whole * denominator) + numerator, denominator: denominator }
 }
 
-// fn parse_operator(operator_string : &str) {
-//     println!("Parsing operator {}", operator_string);
-// }
+fn process_input(input: &str) -> String {
+    let mut elements = input.split_whitespace();
+    let f1 = parse_fraction(elements.next().unwrap());
+    let operator = elements.next().unwrap();
+    let f2 = parse_fraction(elements.next().unwrap());
 
-// fn parse_input(input: &str) {
-//     let mut elements = input.split_whitespace();
-//     let f1 = parse_fraction(elements.next().unwrap());
-//     let operator = parse_operator(elements.next().unwrap());
-//     let f2 = parse_fraction(elements.next().unwrap());
-// }
+    // Do math here bro
+
+    format!("{}", f2)
+}
+
+fn output_prompt() {
+    print!("? ");
+    io::stdout().flush().unwrap();
+}
 
 fn main() {
-    // parse_input("1   +  ");
+    let mut line = String::from("");
+    output_prompt();
+    io::stdin().read_line(&mut line).unwrap();
+    let result = process_input(&line);
+    println!("= {}", result)
 }
 
 #[cfg(test)]

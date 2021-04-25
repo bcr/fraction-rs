@@ -71,19 +71,19 @@ impl FromStr for Fraction {
 }
 
 impl Fraction {
+    // https://stackoverflow.com/questions/18541832/c-sharp-find-the-greatest-common-divisor
+    fn gcd(a : i32, b : i32) -> i32 {
+        if b == 0 {
+            return a
+        } else {
+            return Fraction::gcd(b, a % b)
+        }
+    }
+
     fn reduce(input: Fraction) -> Result<Fraction, String> {
-        let divisor = gcd(input.numerator.abs(), input.denominator);
+        let divisor = Fraction::gcd(input.numerator.abs(), input.denominator);
         Ok(Fraction { numerator: input.numerator / divisor, denominator: input.denominator / divisor })
     }    
-}
-
-// https://stackoverflow.com/questions/18541832/c-sharp-find-the-greatest-common-divisor
-fn gcd(a : i32, b : i32) -> i32 {
-    if b == 0 {
-        return a
-    } else {
-        return gcd(b, a % b)
-    }
 }
 
 fn process_input(input: &str) -> Result<String, String> {

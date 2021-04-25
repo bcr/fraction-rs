@@ -103,12 +103,16 @@ fn output_prompt() {
     io::stdout().flush().unwrap();
 }
 
+fn read_input() -> String {
+    let mut line = String::new();
+    io::stdin().read_line(&mut line).unwrap();
+    line
+}
+
 fn main() {
     loop {
-        let mut line = String::from("");
-
         output_prompt();
-        io::stdin().read_line(&mut line).unwrap();
+        let line = read_input();
         let result = process_input(&line);
         println!("= {}", result)
     }

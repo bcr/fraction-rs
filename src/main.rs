@@ -71,10 +71,6 @@ impl FromStr for Fraction {
     }
 }
 
-fn parse_fraction(fraction_string : &str) -> Fraction {
-    Fraction::from_str(fraction_string).unwrap()
-}
-
 // https://stackoverflow.com/questions/18541832/c-sharp-find-the-greatest-common-divisor
 fn gcd(a : i32, b : i32) -> i32 {
     if b == 0 {
@@ -91,9 +87,9 @@ fn reduce(input: Fraction) -> Fraction {
 
 fn process_input(input: &str) -> Result<String, String> {
     let mut elements = input.split_whitespace();
-    let f1 = parse_fraction(elements.next().unwrap());
+    let f1 = Fraction::from_str(elements.next().unwrap()).unwrap();
     let operator = elements.next().unwrap();
-    let f2 = parse_fraction(elements.next().unwrap());
+    let f2 = Fraction::from_str(elements.next().unwrap()).unwrap();
 
     let mut result = match operator {
         "*" => Fraction { numerator: f1.numerator * f2.numerator, denominator: f1.denominator * f2.denominator },
@@ -136,33 +132,33 @@ mod tests {
     #[test]
     fn whole_number() {
         assert_eq!(
-            parse_fraction("1"),
+            Fraction::from_str("1").unwrap(),
             Fraction { numerator: 1, denominator: 1 });
         assert_eq!(
-            parse_fraction("0"),
+            Fraction::from_str("0").unwrap(),
             Fraction { numerator: 0, denominator: 1 });
         assert_eq!(
-            parse_fraction("-1"),
+            Fraction::from_str("-1").unwrap(),
             Fraction { numerator: -1, denominator: 1 });
     }
 
     #[test]
     fn fraction() {
         assert_eq!(
-            parse_fraction("1/4"),
+            Fraction::from_str("1/4").unwrap(),
             Fraction { numerator: 1, denominator: 4 });
         assert_eq!(
-            parse_fraction("-1/4"),
+            Fraction::from_str("-1/4").unwrap(),
             Fraction { numerator: -1, denominator: 4 });
     }
 
     #[test]
     fn mixed() {
         assert_eq!(
-            parse_fraction("1_1/4"),
+            Fraction::from_str("1_1/4").unwrap(),
             Fraction { numerator: 5, denominator: 4 });
         assert_eq!(
-            parse_fraction("-1_1/4"),
+            Fraction::from_str("-1_1/4").unwrap(),
             Fraction { numerator: -5, denominator: 4 });
     }
 

@@ -16,7 +16,7 @@ impl fmt::Display for Fraction {
         let is_negative = self.numerator < 0;
 
         if is_negative {
-            write!(f, "-").unwrap();
+            write!(f, "-")?;
         }
 
         if denominator == 1 {
@@ -28,7 +28,7 @@ impl fmt::Display for Fraction {
             if numerator > denominator {
                 let whole = numerator / denominator;
                 remaining_numerator -= whole * denominator;
-                write!(f, "{}_", whole).unwrap();
+                write!(f, "{}_", whole)?;
             }
             write!(f, "{}/{}", remaining_numerator, denominator)
         }
@@ -47,19 +47,19 @@ impl FromStr for Fraction {
         let mut remaining_string = fraction_string;
     
         if !has_whole && !has_fraction {
-            whole = remaining_string.parse::<i32>().unwrap();
+            whole = remaining_string.parse::<i32>()?;
         }
     
         if has_whole {
             let mut elements = remaining_string.split("_");
-            whole = elements.next().unwrap().parse::<i32>().unwrap();
+            whole = elements.next().unwrap().parse::<i32>()?;
             remaining_string = elements.next().unwrap();
         }
     
         if has_fraction {
             let mut elements = remaining_string.split("/");
-            numerator = elements.next().unwrap().parse::<i32>().unwrap();
-            denominator = elements.next().unwrap().parse::<i32>().unwrap();
+            numerator = elements.next().unwrap().parse::<i32>()?;
+            denominator = elements.next().unwrap().parse::<i32>()?;
         }
     
         if whole < 0 {

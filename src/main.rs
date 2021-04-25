@@ -72,11 +72,15 @@ impl FromStr for Fraction {
 
 impl Fraction {
     // https://stackoverflow.com/questions/18541832/c-sharp-find-the-greatest-common-divisor
-    fn gcd(a : i32, b : i32) -> i32 {
-        if b == 0 {
-            return a
-        } else {
-            return Fraction::gcd(b, a % b)
+    fn gcd(mut a : i32, mut b : i32) -> i32 {
+        loop {
+            if b == 0 {
+                return a
+            } else {
+                let c = b;
+                b = a % b;
+                a = c;
+            }
         }
     }
 

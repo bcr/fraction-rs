@@ -89,6 +89,8 @@ fn process_input(input: &str) -> String {
     match operator {
         "*" => result = Fraction { numerator: f1.numerator * f2.numerator, denominator: f1.denominator * f2.denominator },
         "/" => result = Fraction { numerator: f1.numerator * f2.denominator, denominator: f1.denominator * f2.numerator },
+        "+" => result = Fraction { numerator: (f1.numerator * f2.denominator) + (f2.numerator * f1.denominator), denominator: f1.denominator * f2.denominator},
+        "-" => result = Fraction { numerator: (f1.numerator * f2.denominator) - (f2.numerator * f1.denominator), denominator: f1.denominator * f2.denominator},
         _ => result = result // unknown operator
     }
 
@@ -167,5 +169,15 @@ mod tests {
     fn divide() {
         assert_eq!("2/5", process_input("2 / 5"));
         assert_eq!("1/2", process_input("1/4 / 1/2"));
+    }
+
+    #[test]
+    fn add() {
+        assert_eq!("3/4", process_input("1/2 + 1/4"));
+    }
+
+    #[test]
+    fn sub() {
+        assert_eq!("1/3", process_input("1/2 - 1/6"));
     }
 }

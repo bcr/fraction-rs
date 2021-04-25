@@ -10,10 +10,10 @@ fn process_input(input: &str) -> Result<String, String> {
     let f2 = elements.next().unwrap().parse::<Fraction>().unwrap();
 
     let mut result = match operator {
-        "*" => Fraction { numerator: f1.numerator * f2.numerator, denominator: f1.denominator * f2.denominator },
-        "/" => Fraction { numerator: f1.numerator * f2.denominator, denominator: f1.denominator * f2.numerator },
-        "+" => Fraction { numerator: (f1.numerator * f2.denominator) + (f2.numerator * f1.denominator), denominator: f1.denominator * f2.denominator},
-        "-" => Fraction { numerator: (f1.numerator * f2.denominator) - (f2.numerator * f1.denominator), denominator: f1.denominator * f2.denominator},
+        "*" => f1 * f2,
+        "/" => f1 / f2,
+        "+" => f1 + f2,
+        "-" => f1 - f2,
         _ => return Err(String::from("Unknown operator"))
     };
 

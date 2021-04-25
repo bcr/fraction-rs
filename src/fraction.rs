@@ -1,5 +1,6 @@
 use std::fmt;
 use std::num::ParseIntError;
+use std::ops::{Add, Sub, Mul, Div};
 use std::str::FromStr;
 
 #[derive(Debug, PartialEq)]
@@ -66,6 +67,38 @@ impl FromStr for Fraction {
         }
     
         Ok(Fraction { numerator: (whole * denominator) + numerator, denominator: denominator })
+    }
+}
+
+impl Add for Fraction {
+    type Output = Self;
+
+    fn add(self, other: Self) -> Self {
+        Self { numerator: (self.numerator * other.denominator) + (other.numerator * self.denominator), denominator: self.denominator * other.denominator }
+    }
+}
+
+impl Sub for Fraction {
+    type Output = Self;
+
+    fn sub(self, other: Self) -> Self {
+        Self { numerator: (self.numerator * other.denominator) - (other.numerator * self.denominator), denominator: self.denominator * other.denominator}
+    }
+}
+
+impl Mul for Fraction {
+    type Output = Self;
+
+    fn mul(self, other: Self) -> Self {
+        Self { numerator: self.numerator * other.numerator, denominator: self.denominator * other.denominator }
+    }
+}
+
+impl Div for Fraction {
+    type Output = Self;
+
+    fn div(self, other: Self) -> Self {
+        Self { numerator: self.numerator * other.denominator, denominator: self.denominator * other.numerator }
     }
 }
 

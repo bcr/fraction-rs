@@ -18,3 +18,7 @@ Example run
 ? 2_3/8 + 9/8
 = 3_1/2
 ```
+
+## Interesting links
+
+https://qubyte.codes/blog/parsing-input-from-stdin-to-structures-in-rust

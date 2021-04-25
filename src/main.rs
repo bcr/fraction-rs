@@ -65,6 +65,20 @@ fn parse_fraction(fraction_string : &str) -> Fraction {
     Fraction { numerator: (whole * denominator) + numerator, denominator: denominator }
 }
 
+// https://stackoverflow.com/questions/18541832/c-sharp-find-the-greatest-common-divisor
+fn gcd(a : i32, b : i32) -> i32 {
+    if b == 0 {
+        return a
+    } else {
+        return gcd(b, a % b)
+    }
+}
+
+fn reduce(input: Fraction) -> Fraction {
+    let divisor = gcd(input.numerator.abs(), input.denominator);
+    Fraction { numerator: input.numerator / divisor, denominator: input.denominator / divisor }
+}
+
 fn process_input(input: &str) -> String {
     let mut elements = input.split_whitespace();
     let f1 = parse_fraction(elements.next().unwrap());
@@ -74,9 +88,11 @@ fn process_input(input: &str) -> String {
 
     match operator {
         "*" => result = Fraction { numerator: f1.numerator * f2.numerator, denominator: f1.denominator * f2.denominator },
+        "/" => result = Fraction { numerator: f1.numerator * f2.denominator, denominator: f1.denominator * f2.numerator },
         _ => result = result // unknown operator
     }
 
+    result = reduce(result);
     format!("{}", result)
 }
 
@@ -145,5 +161,11 @@ mod tests {
     fn multiply() {
         assert_eq!("10", process_input("2 * 5"));
         assert_eq!("1/8", process_input("1/4 * 1/2"));
+    }
+
+    #[test]
+    fn divide() {
+        assert_eq!("2/5", process_input("2 / 5"));
+        assert_eq!("1/2", process_input("1/4 / 1/2"));
     }
 }

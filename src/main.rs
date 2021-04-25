@@ -16,7 +16,7 @@ impl fmt::Display for Fraction {
         let is_negative = self.numerator < 0;
 
         if is_negative {
-            write!(f, "-");
+            write!(f, "-").unwrap();
         }
 
         if denominator == 1 {
@@ -28,7 +28,7 @@ impl fmt::Display for Fraction {
             if numerator > denominator {
                 let whole = numerator / denominator;
                 remaining_numerator -= whole * denominator;
-                write!(f, "{}_", whole);
+                write!(f, "{}_", whole).unwrap();
             }
             write!(f, "{}/{}", remaining_numerator, denominator)
         }

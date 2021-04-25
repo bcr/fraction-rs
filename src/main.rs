@@ -180,4 +180,10 @@ mod tests {
     fn sub() {
         assert_eq!("1/3", process_input("1/2 - 1/6"));
     }
+
+    #[test]
+    fn examples() {
+        assert_eq!("1_7/8", process_input("1/2 * 3_3/4"));
+        assert_eq!("3_1/2", process_input("2_3/8 + 9/8"));
+    }
 }

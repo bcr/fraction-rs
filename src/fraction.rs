@@ -11,9 +11,14 @@ pub struct Fraction {
 
 impl fmt::Display for Fraction {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let numerator = self.numerator.abs();
-        let denominator = self.denominator;
-        let is_negative = self.numerator < 0;
+        // sign_adjustment handles the case where the denominator is negative.
+        // I'm sorry for that. But basically you just flip the sign of both
+        // the numerator and denominator and let us never speak of that again.
+        let sign_adjustment = if self.denominator < 0 { -1 } else { 1 };
+
+        let numerator = (self.numerator * sign_adjustment).abs();
+        let denominator = self.denominator * sign_adjustment;
+        let is_negative = (self.numerator * sign_adjustment) < 0;
 
         if is_negative {
             write!(f, "-")?;

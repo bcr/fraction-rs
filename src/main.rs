@@ -74,4 +74,11 @@ mod tests {
         assert_eq!("1_7/8", process_input("1/2 * 3_3/4").unwrap());
         assert_eq!("3_1/2", process_input("2_3/8 + 9/8").unwrap());
     }
+
+    #[test]
+    fn spaces() {
+        // Operands and operators shall be separated by one or more spaces.
+        assert_eq!("1_7/8", process_input("1/2      *    3_3/4").unwrap());
+        assert_eq!("3_1/2", process_input("2_3/8  +  9/8").unwrap());
+    }
 }

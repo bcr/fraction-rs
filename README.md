@@ -19,6 +19,18 @@ Example run
 = 3_1/2
 ```
 
+## Running interactive prompt
+
+```
+cargo run
+```
+
+## Running tests
+
+```
+cargo test
+```
+
 ## Interesting links
 
 https://qubyte.codes/blog/parsing-input-from-stdin-to-structures-in-rust

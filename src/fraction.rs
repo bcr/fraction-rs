@@ -171,6 +171,7 @@ mod tests {
         assert_eq!(format!("{}", Fraction { numerator: 0, denominator: 1 }), "0");
         assert_eq!(format!("{}", Fraction { numerator: 1, denominator: 4 }), "1/4");
         assert_eq!(format!("{}", Fraction { numerator: -1, denominator: 4 }), "-1/4");
+        assert_eq!(format!("{}", Fraction { numerator: 1, denominator: -4 }), "-1/4");
         assert_eq!(format!("{}", Fraction { numerator: 5, denominator: 4 }), "1_1/4");
         assert_eq!(format!("{}", Fraction { numerator: -5, denominator: 4 }), "-1_1/4");
     }

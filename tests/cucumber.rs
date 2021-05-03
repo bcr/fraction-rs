@@ -5,7 +5,6 @@ mod steps;
 
 pub enum FractionWorld {
     Nothing,
-    SomeString(String),
     ResultString(String),
 }
 

@@ -1,8 +1,6 @@
 use std::io::{self, Write};
 use fraction::process_input;
 
-mod fraction;
-
 fn output_prompt() {
     print!("? ");
     io::stdout().flush().unwrap();

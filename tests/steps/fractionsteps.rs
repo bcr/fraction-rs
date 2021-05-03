@@ -1,10 +1,5 @@
 use cucumber_rust::{Steps};
 
-// I don't know how to repent this sin. I just know it's a sin.
-// Maybe just a venial sin.
-#[path = "../../src/fraction.rs"]
-mod fraction;
-
 use crate::FractionWorld;
 
 pub fn steps() -> Steps<crate::FractionWorld> {
